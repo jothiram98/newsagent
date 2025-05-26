@@ -1,4 +1,5 @@
 import json
+import pandas as pd
 from src.newsagentpipeline import (
     process_batch,
     ChatOpenAI,
@@ -7,11 +8,9 @@ from src.newsagentpipeline import (
 )
 
 if __name__ == "__main__":
-    articles = [
-        "Apple released its latest iPhone 16 today, featuring AI-enhanced capabilities and a titanium frame.",
-        "The local football team triumphed 3-1 over their rivals in the regional championship.",
-        "A bill supporting green energy investment was passed by the senate yesterday in Washington."
-    ]
+    # Read the CSV file using pandas from the dataartifact folder
+    df = pd.read_csv("dataartifact/news_articles.csv")
+    articles = df["Article"].tolist()  # Use the correct column name "Article"
 
     output = process_batch(articles)
     with open("Summary.json", "w") as f:

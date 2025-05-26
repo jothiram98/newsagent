@@ -1,17 +1,19 @@
 {
   "reports": [
-    "{\n  \"report\": {\n    \"facts\": {\n      \"who\": \"Apple\",\n      \"what\": \"Released its latest iPhone 16 featuring AI-enhanced capabilities and a titanium frame\",\n      \"when\": \"today\",\n      \"where\": \"\"\n    },\n    \"sentiment\": \"positive\",\n    \"topics\": [\"technology\", \"business\"],\n    \"note\": \"Partial data available\"\n  }\n}",
-    "{\n  \"report\": {\n    \"facts\": {\n      \"who\": \"The local football team\",\n      \"what\": \"triumphed 3-1 over their rivals in the regional championship\",\n      \"when\": \"Not specified\",\n      \"where\": \"Not specified\"\n    },\n    \"sentiment\": \"positive\",\n    \"topics\": [\"sports\"],\n    \"note\": \"Partial data available\"\n  }\n}",
-    "{\n  \"Facts\": {\n    \"who\": \"the senate\",\n    \"what\": \"A bill supporting green energy investment was passed\",\n    \"when\": \"yesterday\",\n    \"where\": \"Washington\"\n  },\n  \"Sentiment\": \"positive\",\n  \"Topics\": [\"politics\", \"technology\", \"business\"],\n  \"note\": \"Partial data available\"\n}"
+    "{\n  \"report\": {\n    \"facts\": {\n      \"who\": \"The Bharatiya Janata Party (BJP), BJP state president Rajeev Chandrasekhar\",\n      \"what\": \"Described the upcoming Nilambur bypoll in Kerala as a 'forced election' imposed on the populace due to the selfish interests of a representative who abandoned their responsibilities. Criticized the bypoll, stating it offers no benefit or potential for meaningful political or developmental change in the state. Labeled it a product of poor political conduct and emphasized that the NDA will use this opportunity to highlight issues like development stagnation, nepotism, and ongoing hardships in Nilambur.\",\n      \"when\": \"Not specified\",\n      \"where\": \"Nilambur, Kerala\"\n    },\n    \"sentiment\": \"negative\",\n    \"topics\": [\"politics\"],\n    \"note\": \"Partial data available\"\n  }\n}",
+    "{\n  \"report\": {\n    \"facts\": {\n      \"who\": \"Bharatiya Janata Party (BJP), Rekha Gupta\",\n      \"what\": \"BJP secured 48 out of 70 seats in the Delhi Legislative Assembly elections, marking their return to power in Delhi after 27 years. Rekha Gupta was announced as the Chief Minister following the elections.\",\n      \"when\": \"February 5, 2025\",\n      \"where\": \"Delhi\"\n    },\n    \"sentiment\": \"positive\",\n    \"topics\": [\"politics\"],\n    \"note\": \"Partial data available\"\n  }\n}",
+    "{\n  \"Facts\": {\n    \"who\": \"The Indian government\",\n    \"what\": \"Announced plans to support the establishment of 13 multi-city, franchise-based sports leagues across various Olympic and non-Olympic disciplines\",\n    \"when\": \"Not specified\",\n    \"where\": \"India\"\n  },\n  \"Sentiment\": \"positive\",\n  \"Topics\": [\"politics\", \"sports\", \"business\"],\n  \"note\": \"Partial data available\"\n}",
+    "{\n  \"Facts\": {\n    \"who\": \"India\",\n    \"what\": \"Set to enter a transformative 'smartphone era' for cars with the introduction of vehicles featuring 5G M2M connectivity and advanced AI technologies\",\n    \"when\": \"2025\",\n    \"where\": \"India\"\n  },\n  \"Sentiment\": \"positive\",\n  \"Topics\": [\"technology\", \"business\"],\n  \"note\": \"Partial data available\"\n}"
   ],
   "summary": {
     "sentiment_distribution": {
+      "negative": 1,
       "positive": 3
     },
     "most_common_topics": [
       [
-        "technology",
-        2
+        "politics",
+        3
       ],
       [
         "business",
@@ -22,7 +24,7 @@
         1
       ],
       [
-        "politics",
+        "technology",
         1
       ]
     ]
