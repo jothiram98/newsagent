@@ -10,7 +10,7 @@
 newsagent/
 ├── app.py
 ├── dataartifact/
-│   └── news_articles_full.csv
+│   └── news_articles.csv
 ├── src/
 │   └── newsagentpipeline.py
 ├── requirements.txt
@@ -24,7 +24,7 @@ newsagent/
 
 ### 1. Data Input
 
-- The project expects a CSV file (`news_articles_full.csv`) in the `dataartifact` folder.
+- The project expects a CSV file (`news_articles.csv`) in the `dataartifact` folder.
 - The CSV must have at least two columns: `S.NO` and `Article`.
 - Each article is wrapped in double quotes to handle commas within the text.
 
@@ -48,7 +48,7 @@ newsagent/
 
 ```bash
 +---------------------+
-|  news_articles_full |
+|  news_articles |
 |      (CSV file)     |
 +----------+----------+
            |
@@ -83,7 +83,7 @@ newsagent/
    ```
 
 2. **Place your CSV file:**
-   - Save your news articles as `news_articles_full.csv` in the `dataartifact` folder.
+   - Save your news articles as `news_articles.csv` in the `dataartifact` folder.
 
 3. **Run the pipeline:**
    ```bash
@@ -106,7 +106,7 @@ from src.newsagentpipeline import process_batch, ChatOpenAI, PromptTemplate, Too
 
 if __name__ == "__main__":
     # Read the CSV file using pandas from the dataartifact folder
-    df = pd.read_csv("dataartifact/news_articles_full.csv")
+    df = pd.read_csv("dataartifact/news_articles.csv")
     articles = df["Article"].tolist()  # Extract the 'Article' column
 
     output = process_batch(articles)   # Process articles using the AI pipeline
