@@ -4,3 +4,6 @@ langchain-openai
 langchain_community
 python-dotenv
 pandas
+fastapi
+uvicorn
+python-multipart
