@@ -1,6 +1,6 @@
 # NewsAgent
 
-**NewsAgent** is a Python-based pipeline for processing and summarizing news articles using advanced AI models. It reads a CSV file containing news article summaries, processes them in batch, and generates structured summaries and analytics.
+**NewsAgent** is a Python-based Agentic pipeline for processing and summarizing news articles using advanced AI models. It supports both batch processing via a script and real-time summarization via a FastAPI web service.
 
 ---
 
@@ -12,7 +12,8 @@ newsagent/
 ├── dataartifact/
 │   └── news_articles.csv
 ├── src/
-│   └── newsagentpipeline.py
+│   ├── newsagentpipeline.py
+│   └── fastapi_app.py
 ├── requirements.txt
 ├── LICENSE
 └── README.md
@@ -24,9 +25,9 @@ newsagent/
 
 ### 1. Data Input
 
-- The project expects a CSV file (`news_articles.csv`) in the `dataartifact` folder.
+- The project expects a CSV file (e.g., `news_articles.csv`) in the `dataartifact` folder.
 - The CSV must have at least two columns: `S.NO` and `Article`.
-- Each article is wrapped in double quotes to handle commas within the text.
+- Each article should be wrapped in double quotes to handle commas within the text.
 
 ### 2. Processing Pipeline
 
@@ -36,11 +37,10 @@ newsagent/
 - The pipeline uses AI models (via LangChain and OpenAI) to analyze and summarize each article.
 - The output is saved as `Summary.json`.
 
-### 3. Output
+### 3. FastAPI Integration
 
-- The output JSON contains:
-  - A list of structured reports for each article.
-  - An overall summary with sentiment distribution and most common topics.
+- The FastAPI app (`src/fastapi_app.py`) exposes an endpoint to upload a CSV and get summaries as a JSON response.
+- This allows you to use the summarization pipeline as a web service.
 
 ---
 
@@ -48,34 +48,36 @@ newsagent/
 
 ```bash
 +---------------------+
-|  news_articles |
-|      (CSV file)     |
+|  news_articles.csv  |
+|    (CSV file)       |
 +----------+----------+
            |
            v
-+---------------------+
-|   app.py (main)     |
-| - Reads CSV         |
-| - Extracts articles |
-+----------+----------+
-           |
-           v
-+-------------------------------+
-| process_batch (pipeline)      |
-| - AI summarization            |
-| - Sentiment/topic extraction  |
-+----------+--------------------+
-           |
-           v
-+---------------------+
-|   Summary.json      |
-| (Structured output) |
-+---------------------+
++---------------------+         +---------------------+
+|   app.py (main)     |         |  fastapi_app.py     |
+| - Reads CSV         |         |  (FastAPI endpoint) |
+| - Extracts articles |         |  /summarize/        |
++----------+----------+         +----------+----------+
+           |                              |
+           v                              v
++-------------------------------+  +-------------------------------+
+| process_batch (pipeline)      |  | process_batch (pipeline)      |
+| - AI summarization            |  | - AI summarization            |
+| - Sentiment/topic extraction  |  | - Sentiment/topic extraction  |
++----------+--------------------+  +----------+--------------------+
+           |                              |
+           v                              v
++---------------------+         +---------------------+
+|   Summary.json      |         |   JSON Response     |
+| (Structured output) |         | (Structured output) |
++---------------------+         +---------------------+
 ```
 
 ---
 
 ## Example Usage
+
+### Batch Script
 
 1. **Install dependencies:**
    ```bash
@@ -92,6 +94,34 @@ newsagent/
 
 4. **Check the output:**
    - The results will be saved in `Summary.json`.
+
+---
+
+### FastAPI Web Service
+
+1. **Install dependencies (if not already done):**
+   ```bash
+   pip install -r requirements.txt
+   pip install fastapi uvicorn
+   ```
+
+2. **Run the FastAPI server:**
+   ```bash
+   uvicorn src.fastapi_app:app --reload
+   ```
+
+3. **Access the API docs:**
+   - Open [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs) in your browser.
+
+4. **Use the `/summarize/` endpoint:**
+   - Upload a CSV file (with an `Article` column) using the interactive Swagger UI or via a tool like `curl` or Postman.
+   - The API will return the summaries as a JSON response.
+
+#### Example API Usage with `curl`:
+
+```bash
+curl -X POST "http://127.0.0.1:8000/summarize/" -F "file=@dataartifact/news_articles.csv"
+```
 
 ---
 
@@ -116,17 +146,34 @@ if __name__ == "__main__":
     print("✅ Done. Output saved to Summary.json.")
 ```
 
-- **Reads** the CSV file containing news articles.
-- **Extracts** the articles as a list.
-- **Processes** the articles in batch using the AI pipeline.
-- **Saves** the structured summaries and analytics to `Summary.json`.
+### `src/fastapi_app.py`
+
+```python
+from fastapi import FastAPI, UploadFile, File
+import pandas as pd
+from src.newsagentpipeline import process_batch
+
+app = FastAPI()
+
+@app.post("/summarize/")
+async def summarize_news(file: UploadFile = File(...)):
+    # Read uploaded CSV file into pandas DataFrame
+    df = pd.read_csv(file.file)
+    if "Article" not in df.columns:
+        return {"error": "CSV must contain an 'Article' column."}
+    articles = df["Article"].tolist()
+    output = process_batch(articles)
+    return output
+```
+
+- **/summarize/**: Accepts a CSV file upload, processes the articles, and returns the summaries as JSON.
 
 ---
 
 ## Requirements
 
 - Python 3.8+
-- See `requirements.txt` for dependencies (LangChain, OpenAI, pandas, etc.)
+- See `requirements.txt` for dependencies (LangChain, OpenAI, pandas, FastAPI, uvicorn, etc.)
 
 ---
 
