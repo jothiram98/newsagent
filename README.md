@@ -187,3 +187,4 @@ MIT License
 
 - Ensure your CSV is properly quoted to avoid parsing errors.
 - The AI summarization uses OpenAI models via LangChain; set up your API keys as needed.
+- If you want to contribute to the codebase please feel free to reach jothiramsanjeevi@gmail.com **Stay Hungry** **Stay Foolish**
